@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:java="http://www.mulesoft.org/schema/mule/java" xmlns:scripting="http://www.mulesoft.org/schema/mule/scripting"
+	xmlns:http="http://www.mulesoft.org/schema/mule/http"
+	xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd
+http://www.mulesoft.org/schema/mule/scripting http://www.mulesoft.org/schema/mule/scripting/current/mule-scripting.xsd">
+	
+	<http:listener-config name="HTTP_Listener_config" doc:name="HTTP Listener config" doc:id="6d29a981-4777-4ee1-907c-08cb904fa09d" >
+		<http:listener-connection host="0.0.0.0" port="8081" />
+	</http:listener-config>
+	<flow name="testFlow" doc:id="24ab081e-9e75-4209-bb00-ccba7ebff601" >
+		<http:listener doc:name="Listener" doc:id="da1cfcef-8011-401c-83ef-c99b14b900c1" config-ref="HTTP_Listener_config" path="/test"/>
+		<scripting:execute doc:name="Execute" doc:id="d0cd9137-67d4-418d-9c2f-aa42e2a7c2ff" engine="nashorn">
+			<scripting:code >var request = require('request');
+request.get({ url: 'http://www.google.com', time: true }, function (err, response) {
+    console.log('The actual time elapsed:', response.elapsedTime);
+});</scripting:code>
+		</scripting:execute>
+		<logger level="INFO" doc:name="Logger" doc:id="d711b73e-010b-425d-a8bf-6f64d0595e6b" />
+	</flow>
+</mule>

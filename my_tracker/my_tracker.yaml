@@ -1,0 +1,11 @@
+id: my_tracker
+name: my_tracker
+description: Gives the time to track the API
+category: Custom
+type: custom
+resourceLevelSupported: true
+encryptionSupported: false
+standalone: true
+requiredCharacteristics: []
+providedCharacteristics: []
+configuration: []
